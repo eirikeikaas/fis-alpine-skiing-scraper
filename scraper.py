@@ -64,14 +64,14 @@ for link, raceinfo in race_link_results(FIS_URL):
         athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
         result = {
             'event': raceinfo['codex'],
-            'rank': get_cell_value(result_cell.cssselect("td")[0], ""),
+            'rank': result_cell.cssselect("td")[0].text_content(),
             'athlete': get_cell_value(result_cell.cssselect("td")[1], "a"),
             'competitor_id': athlete_id,
-            'yob': get_cell_value(result_cell.cssselect("td")[2], ""),
-            'nation': get_cell_value(result_cell.cssselect("td")[3], ""),
-            'time': get_cell_value(result_cell.cssselect("td")[4], ""),
-            'behind': get_cell_value(result_cell.cssselect("td")[5], ""),
-            'points': get_cell_value(result_cell.cssselect("td")[6], "")
+            'yob': result_cell.cssselect("td")[2].text_content(),
+            'nation': result_cell.cssselect("td")[3].text_content(),
+            'time': result_cell.cssselect("td")[4].text_content(),
+            'behind': result_cell.cssselect("td")[5].text_content(),
+            'points': result_cell.cssselect("td")[6].text_content()
         }
         print result
     print link
