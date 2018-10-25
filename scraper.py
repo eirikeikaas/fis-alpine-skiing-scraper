@@ -27,10 +27,8 @@ def race_link_results(url):
     root = lxml.html.fromstring(html)
     result_table = root.cssselect("table.fisfootable")[0]
     status_cells = result_table.cssselect("td.status")
-     
-    print html
     for status_cell in status_cells:
-        result_div = status_cell.cssselect("div")[1]
+        result_div = status_cell.cssselect("div")[0]
         for element, attribute, link, pos in result_div.iterlinks():
             event_page = scraperwiki.scrape(link)
             event_root = lxml.html.fromstring(event_page)
