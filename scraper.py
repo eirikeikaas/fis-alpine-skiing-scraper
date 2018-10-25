@@ -54,7 +54,7 @@ FIS_URL = "http://data.fis-ski.com/cross-country/results.html"
 for link, raceinfo in race_link_results(FIS_URL):
     html = scraperwiki.scrape(link)
     root = lxml.html.fromstring(html)
-    result_table = root.cssselect("table.footable")[0]
+    result_table = root.cssselect("table.footable")[1]
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
         print result_cell.text_content()
