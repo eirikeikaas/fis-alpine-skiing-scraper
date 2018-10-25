@@ -57,19 +57,19 @@ for link, raceinfo in race_link_results(FIS_URL):
     result_table = root.cssselect("table.footable")[0]
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
-        athlete_url = result_cell.cssselect("td")[2].cssselect("a")[0].get("href")
+        athlete_url = result_cell.cssselect("td")[1].cssselect("a")[0].get("href")
         parsed = urlparse.urlparse(athlete_url)
         athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
         result = {
             'event': raceinfo['codex'],
-            'rank': get_cell_value(result_cell.cssselect("td")[1], ""),
-            'athlete': get_cell_value(result_cell.cssselect("td")[2], "a"),
+            'rank': get_cell_value(result_cell.cssselect("td")[0], ""),
+            'athlete': get_cell_value(result_cell.cssselect("td")[1], "a"),
             'competitor_id': athlete_id,
-            'yob': get_cell_value(result_cell.cssselect("td")[3], ""),
-            'nation': get_cell_value(result_cell.cssselect("td")[4], ""),
-            'time': get_cell_value(result_cell.cssselect("td")[5], ""),
-            'behind': get_cell_value(result_cell.cssselect("td")[6], ""),
-            'points': get_cell_value(result_cell.cssselect("td")[7], "")
+            'yob': get_cell_value(result_cell.cssselect("td")[2], ""),
+            'nation': get_cell_value(result_cell.cssselect("td")[3], ""),
+            'time': get_cell_value(result_cell.cssselect("td")[4], ""),
+            'behind': get_cell_value(result_cell.cssselect("td")[5], ""),
+            'points': get_cell_value(result_cell.cssselect("td")[6], "")
         }
         print result
     print link
