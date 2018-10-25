@@ -57,17 +57,18 @@ for link, raceinfo in race_link_results(FIS_URL):
     result_table = root.cssselect("table.footable")[0]
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
-        #athlete = result_cell.cssselect("td a")[0]
-        #print athlete.text_content()
-        #athlete_url = athlete.cssselect("a")[0].get("href")
-        #parsed = urlparse.urlparse(athlete_url)
-        #athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
         if len(result_cell.cssselect("td")) > 1:
             result = {
+                athlete = result_cell.cssselect("td a")[0]
+                print athlete.text_content()
+                athlete_url = athlete.cssselect("a")[0].get("href")
+                parsed = urlparse.urlparse(athlete_url)
+                athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
+                    
                 'event': raceinfo['codex'],
                 'rank': result_cell.cssselect("td")[0].text_content(),
                 'athlete': result_cell.cssselect("td")[1].text_content(),
-                #'competitor_id': athlete_id,
+                'competitor_id': athlete_id,
                 'yob': result_cell.cssselect("td")[2].text_content(),
                 'nation': result_cell.cssselect("td")[3].text_content(),
                 'time': result_cell.cssselect("td")[4].text_content(),
