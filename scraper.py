@@ -65,7 +65,7 @@ for link, raceinfo in race_link_results(FIS_URL):
         result = {
             'event': raceinfo['codex'],
             'rank': result_cell.cssselect("td")[0].text_content(),
-            'athlete': get_cell_value(result_cell.cssselect("td")[1], "a"),
+            'athlete': result_cell.cssselect("td")[1].text_content(),
             #'competitor_id': athlete_id,
             'yob': result_cell.cssselect("td")[2].text_content(),
             'nation': result_cell.cssselect("td")[3].text_content(),
