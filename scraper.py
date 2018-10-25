@@ -58,7 +58,7 @@ for link, raceinfo in race_link_results(FIS_URL):
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
         if len(result_cell.cssselect("td")) > 1:
-            athlete = result_cell.cssselect("td a")[0]
+            athlete = result_cell.cssselect("td")[1]
             print athlete.text_content()
             athlete_url = athlete.cssselect("a")[0].get("href")
             parsed = urlparse.urlparse(athlete_url)
