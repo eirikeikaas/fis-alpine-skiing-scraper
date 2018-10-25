@@ -36,6 +36,7 @@ def race_link_results(url):
             for event_row in event_rows:
                 last_cell = event_row.cssselect("td:last-child")[0]
                 for race_links in last_cell.iterlinks():
+                    print get_cell_value(event_row.cssselect("td")[2], "span a")
                     extra = {
                         'date': get_cell_value(event_row.cssselect("td")[1], "span a"),
                         'place': get_cell_value(event_row.cssselect("td")[2], "span a"),
@@ -48,7 +49,7 @@ def race_link_results(url):
 def get_cell_value(element, css):
     return element.cssselect(css)[0].text_content()
 
-FIS_URL = "http://data.fis-ski.com/alpine-skiing/results.html"
+FIS_URL = "http://data.fis-ski.com/cross-country/results.html"
 for link, raceinfo in race_link_results(FIS_URL):
     # html = scraperwiki.scrape(link)
     # root = lxml.html.fromstring(html)
