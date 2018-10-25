@@ -57,7 +57,6 @@ for link, raceinfo in race_link_results(FIS_URL):
     result_table = root.cssselect("table.footable")[1]
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
-        print result_cell.text_content()
         if len(result_cell.cssselect("td")) > 2:
             athlete = result_cell.cssselect("td")[1]
             print athlete.text_content()
