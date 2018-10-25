@@ -72,7 +72,7 @@ for link, raceinfo in race_link_results(FIS_URL):
                 'nation': result_cell.cssselect("td")[3].text_content().encode('utf-8'),
                 'time': result_cell.cssselect("td")[4].text_content().encode('utf-8'),
                 'behind': result_cell.cssselect("td")[5].text_content().encode('utf-8'),
-                'points': int(result_cell.cssselect("td")[6].text_content())
+                'points': float(result_cell.cssselect("td")[6].text_content())
             }
             print result
             scraperwiki.sqlite.save(unique_keys=['athlete'], data=result, table_name="result")
