@@ -32,7 +32,7 @@ def race_link_results(url):
         for element, attribute, link, pos in result_div.iterlinks():
             event_page = scraperwiki.scrape(link)
             event_root = lxml.html.fromstring(event_page)
-            event_rows = event_root.cssselect("table.footable tbody tr")
+            event_rows = event_root.cssselect("table.fisfootable tbody tr")
             for event_row in event_rows:
                 last_cell = event_row.cssselect("td:last-child")[0]
                 for race_links in last_cell.iterlinks():
