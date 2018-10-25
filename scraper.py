@@ -57,7 +57,7 @@ for link, raceinfo in race_link_results(FIS_URL):
     result_table = root.cssselect("table.footable")[0]
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
-        athlete = result_cell.cssselect("td")[1]
+        athlete = result_cell.cssselect("td:nth-child[1] a")[0]
         print athlete.text_content()
         athlete_url = athlete.cssselect("a")[0].get("href")
         parsed = urlparse.urlparse(athlete_url)
