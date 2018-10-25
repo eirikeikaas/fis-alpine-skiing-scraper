@@ -55,6 +55,7 @@ for link, raceinfo in race_link_results(FIS_URL):
     # result_table = root.cssselect("table.fisfootable")[0]
     print link
     print raceinfo['date']
+    scraperwiki.sqlite.save(unique_keys=['codex'], data=raceinfo, table_name="data")
 
 # # Write out to the sqlite database using scraperwiki library
 # data = {"name": "susan", "occupation": "software developer"}
