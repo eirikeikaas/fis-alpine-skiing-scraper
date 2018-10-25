@@ -69,7 +69,7 @@ for link, raceinfo in race_link_results(FIS_URL):
                 'athlete': result_cell.cssselect("td")[1].text_content(),
                 'competitor_id': int(athlete_id),
                 'yob': int(result_cell.cssselect("td")[2].text_content()),
-                'nation': result_cell.cssselect("td")[3].text_content().replace('&nbsp;', '').encode('utf-8'),
+                'nation': result_cell.cssselect("td")[3].text_content(),
                 #'time': result_cell.cssselect("td")[4].text_content().encode('utf-8'),
                 #'behind': result_cell.cssselect("td")[5].text_content().encode('utf-8'),
                 'points': float(result_cell.cssselect("td")[6].text_content())
