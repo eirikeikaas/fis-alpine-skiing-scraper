@@ -5,6 +5,7 @@ os.environ['SCRAPERWIKI_DATABASE_NAME'] = DATABASE_NAME
 
 import scraperwiki
 import lxml.html
+import urlparse
 from pprint import pprint
 
 result_schema = {
@@ -56,7 +57,21 @@ for link, raceinfo in race_link_results(FIS_URL):
     result_table = root.cssselect("table.footable")[0]
     result_cells = result_table.cssselect("tr")
     for result_cell in result_cells:
-        print result_cell
+        athlete_url = result_cell.cssselect("td")[2].csselect("a")[0].get("href")
+        parsed = urlparse.urlparse(athlete_url)
+        athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
+        result = {
+            'event': raceinfo['codex'],
+            'rank': get_cell_value(result_cell.cssselect("td")[1], ""),
+            'athlete': get_cell_value(result_cell.cssselect("td")[2], "a"),
+            'competitor_id': athlete_id,
+            'yob': get_cell_value(result_cell.cssselect("td")[3], ""),
+            'nation': get_cell_value(result_cell.cssselect("td")[4], ""),
+            'time': get_cell_value(result_cell.cssselect("td")[5], ""),
+            'behind': get_cell_value(result_cell.cssselect("td")[6], ""),
+            'points': get_cell_value(result_cell.cssselect("td")[7], "")
+        }
+        print result
     print link
     print raceinfo['date']
     scraperwiki.sqlite.save(unique_keys=['codex'], data=raceinfo, table_name="data")
