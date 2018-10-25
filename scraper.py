@@ -37,13 +37,13 @@ def race_link_results(url):
             for event_row in event_rows:
                 last_cell = event_row.cssselect("td:last-child")[0]
                 for race_links in last_cell.iterlinks():
-                    print get_cell_value(event_row.cssselect("td")[2], "span a").encode('utf-8')
+                    print get_cell_value(event_row.cssselect("td")[2], "span a").decode("utf-8").encode('ascii', 'ignore')
                     extra = {
-                        'date': get_cell_value(event_row.cssselect("td")[1], "span a").encode('utf-8'),
-                        'place': get_cell_value(event_row.cssselect("td")[2], "span a").encode('utf-8'),
-                        'country': get_cell_value(event_row.cssselect("td")[3], "a span").encode('utf-8'),
-                        'codex': get_cell_value(event_row.cssselect("td")[4], "a").encode('utf-8'),
-                        'discipline': get_cell_value(event_row.cssselect("td")[5], "a").encode('utf-8'),
+                        'date': get_cell_value(event_row.cssselect("td")[1], "span a").decode("utf-8").encode('ascii', 'ignore'),
+                        'place': get_cell_value(event_row.cssselect("td")[2], "span a").decode("utf-8").encode('ascii', 'ignore'),
+                        'country': get_cell_value(event_row.cssselect("td")[3], "a span").decode("utf-8").encode('ascii', 'ignore'),
+                        'codex': get_cell_value(event_row.cssselect("td")[4], "a").decode("utf-8").encode('ascii', 'ignore'),
+                        'discipline': get_cell_value(event_row.cssselect("td")[5], "a").decode("utf-8").encode('ascii', 'ignore'),
                     }
                     yield (race_links[2], extra)
 
@@ -65,14 +65,14 @@ for link, raceinfo in race_link_results(FIS_URL):
             athlete_id = urlparse.parse_qs(parsed.query)['competitorid'][0]
             result = {
                 'event': raceinfo['codex'],
-                'rank': result_cell.cssselect("td")[0].text_content().encode('utf-8'),
-                'athlete': result_cell.cssselect("td")[1].text_content().encode('utf-8'),
+                'rank': result_cell.cssselect("td")[0].text_content().decode("utf-8").encode('ascii', 'ignore'),
+                'athlete': result_cell.cssselect("td")[1].text_content().decode("utf-8").encode('ascii', 'ignore'),
                 'competitor_id': athlete_id,
-                'yob': result_cell.cssselect("td")[2].text_content().encode('utf-8'),
-                'nation': result_cell.cssselect("td")[3].text_content().encode('utf-8'),
-                'time': result_cell.cssselect("td")[4].text_content().encode('utf-8'),
-                'behind': result_cell.cssselect("td")[5].text_content().encode('utf-8'),
-                'points': result_cell.cssselect("td")[6].text_content().encode('utf-8')
+                'yob': result_cell.cssselect("td")[2].text_content().decode("utf-8").encode('ascii', 'ignore'),
+                'nation': result_cell.cssselect("td")[3].text_content().decode("utf-8").encode('ascii', 'ignore'),
+                'time': result_cell.cssselect("td")[4].text_content().decode("utf-8").encode('ascii', 'ignore'),
+                'behind': result_cell.cssselect("td")[5].text_content().decode("utf-8").encode('ascii', 'ignore'),
+                'points': result_cell.cssselect("td")[6].text_content().decode("utf-8").encode('ascii', 'ignore')
             }
             print result
             scraperwiki.sqlite.save(unique_keys=['athlete'], data=result, table_name="result")
