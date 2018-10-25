@@ -1,2 +1,3 @@
 # Install with a command like: pip install -r requirements.txt
 scraperwiki==0.3.10
+lxml
