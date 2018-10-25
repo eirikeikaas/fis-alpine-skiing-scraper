@@ -60,7 +60,7 @@ for link, raceinfo in race_link_results(FIS_URL):
         if len(result_cell.cssselect("td")) > 2:
             athlete = result_cell.cssselect("td")[1]
             print athlete.text_content()
-            athlete_url = athlete.cssselect("a")
+            athlete_url = athlete.cssselect("a")[0].get("href")
             print athlete_url
             parsed = urlparse.urlparse(athlete_url)
             athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
