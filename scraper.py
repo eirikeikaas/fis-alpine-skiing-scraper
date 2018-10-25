@@ -37,13 +37,13 @@ def race_link_results(url):
             for event_row in event_rows:
                 last_cell = event_row.cssselect("td:last-child")[0]
                 for race_links in last_cell.iterlinks():
-                    print get_cell_value(event_row.cssselect("td")[2], "span a")
+                    print get_cell_value(event_row.cssselect("td")[2], "span a").encode('utf-8')
                     extra = {
-                        'date': get_cell_value(event_row.cssselect("td")[1], "span a"),
-                        'place': get_cell_value(event_row.cssselect("td")[2], "span a"),
-                        'country': get_cell_value(event_row.cssselect("td")[3], "a span"),
-                        'codex': get_cell_value(event_row.cssselect("td")[4], "a"),
-                        'discipline': get_cell_value(event_row.cssselect("td")[5], "a"),
+                        'date': get_cell_value(event_row.cssselect("td")[1], "span a").encode('utf-8'),
+                        'place': get_cell_value(event_row.cssselect("td")[2], "span a").encode('utf-8'),
+                        'country': get_cell_value(event_row.cssselect("td")[3], "a span").encode('utf-8'),
+                        'codex': get_cell_value(event_row.cssselect("td")[4], "a").encode('utf-8'),
+                        'discipline': get_cell_value(event_row.cssselect("td")[5], "a").encode('utf-8'),
                     }
                     yield (race_links[2], extra)
 
@@ -65,14 +65,14 @@ for link, raceinfo in race_link_results(FIS_URL):
             athlete_id = urlparse.parse_qs(parsed.query)['competitorid'][0]
             result = {
                 'event': raceinfo['codex'],
-                'rank': result_cell.cssselect("td")[0].text_content(),
-                'athlete': result_cell.cssselect("td")[1].text_content(),
+                'rank': result_cell.cssselect("td")[0].text_content().encode('utf-8'),
+                'athlete': result_cell.cssselect("td")[1].text_content().encode('utf-8'),
                 'competitor_id': athlete_id,
-                'yob': result_cell.cssselect("td")[2].text_content(),
-                'nation': result_cell.cssselect("td")[3].text_content(),
-                'time': result_cell.cssselect("td")[4].text_content(),
-                'behind': result_cell.cssselect("td")[5].text_content(),
-                'points': result_cell.cssselect("td")[6].text_content()
+                'yob': result_cell.cssselect("td")[2].text_content().encode('utf-8'),
+                'nation': result_cell.cssselect("td")[3].text_content().encode('utf-8'),
+                'time': result_cell.cssselect("td")[4].text_content().encode('utf-8'),
+                'behind': result_cell.cssselect("td")[5].text_content().encode('utf-8'),
+                'points': result_cell.cssselect("td")[6].text_content().encode('utf-8')
             }
             print result
             scraperwiki.sqlite.save(unique_keys=['athlete'], data=result, table_name="result")
