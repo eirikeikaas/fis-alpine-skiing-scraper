@@ -62,18 +62,20 @@ for link, raceinfo in race_link_results(FIS_URL):
         #athlete_url = athlete.cssselect("a")[0].get("href")
         #parsed = urlparse.urlparse(athlete_url)
         #athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
-        result = {
-            'event': raceinfo['codex'],
-            'rank': result_cell.cssselect("td")[0].text_content(),
-            'athlete': result_cell.cssselect("td")[1].text_content(),
-            #'competitor_id': athlete_id,
-            'yob': result_cell.cssselect("td")[2].text_content(),
-            'nation': result_cell.cssselect("td")[3].text_content(),
-            'time': result_cell.cssselect("td")[4].text_content(),
-            'behind': result_cell.cssselect("td")[5].text_content(),
-            'points': result_cell.cssselect("td")[6].text_content()
-        }
-        print result
+        if len(result_cell.cssselect("td")) > 1:
+            result = {
+                'event': raceinfo['codex'],
+                'rank': result_cell.cssselect("td")[0].text_content(),
+                'athlete': result_cell.cssselect("td")[1].text_content(),
+                #'competitor_id': athlete_id,
+                'yob': result_cell.cssselect("td")[2].text_content(),
+                'nation': result_cell.cssselect("td")[3].text_content(),
+                'time': result_cell.cssselect("td")[4].text_content(),
+                'behind': result_cell.cssselect("td")[5].text_content(),
+                'points': result_cell.cssselect("td")[6].text_content()
+            }
+            print result
+            scraperwiki.sqlite.save(unique_keys=['athlete'], data=result, table_name="result")
     print link
     print raceinfo['date']
     scraperwiki.sqlite.save(unique_keys=['codex'], data=raceinfo, table_name="data")
