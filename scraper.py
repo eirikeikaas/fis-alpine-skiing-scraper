@@ -62,7 +62,7 @@ for link, raceinfo in race_link_results(FIS_URL):
             athlete_url = athlete.cssselect("a")[0].get("href")
             print athlete_url
             parsed = urlparse.urlparse(athlete_url)
-            athlete_id = urlparse.parse_qs(parsed.query)['competitorid']
+            athlete_id = urlparse.parse_qs(parsed.query)['competitorid'][0]
             result = {
                 'event': raceinfo['codex'],
                 'rank': result_cell.cssselect("td")[0].text_content(),
