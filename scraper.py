@@ -65,14 +65,14 @@ for link, raceinfo in race_link_results(FIS_URL):
             athlete_id = urlparse.parse_qs(parsed.query)['competitorid'][0]
             result = {
                 'event': raceinfo['codex'],
-                'rank': result_cell.cssselect("td")[0].text_content().decode('utf-8'),
+                'rank': int(result_cell.cssselect("td")[0].text_content()),
                 'athlete': result_cell.cssselect("td")[1].text_content().decode('utf-8'),
-                'competitor_id': athlete_id,
-                'yob': result_cell.cssselect("td")[2].text_content().decode('utf-8'),
+                'competitor_id': int(athlete_id),
+                'yob': int(result_cell.cssselect("td")[2].text_content()),
                 'nation': result_cell.cssselect("td")[3].text_content().decode('utf-8'),
                 'time': result_cell.cssselect("td")[4].text_content().decode('utf-8'),
                 'behind': result_cell.cssselect("td")[5].text_content().decode('utf-8'),
-                'points': result_cell.cssselect("td")[6].text_content().decode('utf-8')
+                'points': int(result_cell.cssselect("td")[6].text_content())
             }
             print result
             scraperwiki.sqlite.save(unique_keys=['athlete'], data=result, table_name="result")
