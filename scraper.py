@@ -52,6 +52,7 @@ def get_cell_value(element, css):
 
 FIS_URL = "http://data.fis-ski.com/cross-country/results.html"
 for link, raceinfo in race_link_results(FIS_URL):
+    print link
     html = scraperwiki.scrape(link)
     root = lxml.html.fromstring(html)
     result_table = root.cssselect("table.footable")[1]
@@ -77,7 +78,6 @@ for link, raceinfo in race_link_results(FIS_URL):
             }
             print result
             scraperwiki.sqlite.save(unique_keys=['athlete'], data=result, table_name="result")
-    print link
     print raceinfo['date']
     scraperwiki.sqlite.save(unique_keys=['codex'], data=raceinfo, table_name="data")
 
