@@ -50,7 +50,7 @@ def race_link_results(url):
 def get_cell_value(element, css):
     return element.cssselect(css)[0].text_content()
 
-FIS_URL = "http://data.fis-ski.com/cross-country/results.html"
+FIS_URL = "https://data.fis-ski.com/cross-country/results.html?place_search=&seasoncode_search=2018&sector_search=CC&date_search=&gender_search=&category_search=WC&codex_search=&nation_search=&disciplinecode_search=&date_from=06&search=Search&rec_start=0&limit=100"
 for link, raceinfo in race_link_results(FIS_URL):
     print link
     html = scraperwiki.scrape(link)
